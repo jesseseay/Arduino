@@ -13,7 +13,7 @@ unsigned long previousMillis = 0;        // will store last time LED was updated
 const long interval1 = 2000;           // interval at which to blink (milliseconds)
 const long interval2 = 5000;           // interval at which to blink (milliseconds)
 const long interval3 = 9000;           // interval at which to blink (milliseconds)
-const long interval4 = 12000;           // interval at which to blink (milliseconds)
+const long interval4 = 11375;           // interval at which to blink (milliseconds)
 
 
 void setup() {
@@ -30,18 +30,19 @@ void loop()
   unsigned long currentMillis = millis();
   if (currentMillis - previousMillis <= interval1) {
     analogWrite(ledPin1, random(200) + 55);
+    delay(random(10));
   }
 
   else if (currentMillis - previousMillis <= interval2) {
     analogWrite(ledPin1, random(200) + 55);
     analogWrite(ledPin2, random(200) + 55);
-    delay(random(20));
+    delay(random(10));
   }
   else if (currentMillis - previousMillis <= interval3) {
     analogWrite(ledPin1, random(200) + 55);
     analogWrite(ledPin2, random(200) + 55);
     analogWrite(ledPin3, random(200) + 55);
-    delay(random(20));
+    delay(random(10));
   }
 
   else if (currentMillis - previousMillis <= interval4) {
@@ -53,13 +54,13 @@ void loop()
     delay(5);
 
 
-    for (int fadeValue = 255 ; fadeValue >= 0; fadeValue -= 1) {
+    for (int fadeValue = 245 ; fadeValue >= 0; fadeValue -= 1) {
       // sets the value (range from 0 to 255):
       analogWrite(ledPin1, fadeValue);
       analogWrite(ledPin2, fadeValue);
       analogWrite(ledPin3, fadeValue);
       analogWrite(ledPin4, fadeValue);
-      delay (10);
+      delay (30);
       // wait for 30 milliseconds to see the dimming effect
     }
 
@@ -71,7 +72,7 @@ void loop()
     digitalWrite (ledPin2, LOW);
     digitalWrite (ledPin3, LOW);
     digitalWrite (ledPin4, LOW);
-   // delay ((random(5, 10) * 1000));
+    delay ((random(3) * 1000));
     previousMillis = currentMillis;
 
 
