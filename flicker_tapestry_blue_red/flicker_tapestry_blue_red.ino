@@ -52,7 +52,6 @@ void loop()
     digitalWrite (ledPin4, HIGH);
     delay(5);
 
-
     for (int fadeValue = 255 ; fadeValue >= 0; fadeValue -= 1) {
       // sets the value (range from 0 to 255):
       analogWrite(ledPin1, fadeValue);
@@ -60,18 +59,16 @@ void loop()
       analogWrite(ledPin3, fadeValue);
       analogWrite(ledPin4, fadeValue);
       delay (10);
-      // wait for 30 milliseconds to see the dimming effect
+
     }
-
   }
-
 
   else if (currentMillis - previousMillis > interval4) {
     digitalWrite (ledPin1, LOW);
     digitalWrite (ledPin2, LOW);
     digitalWrite (ledPin3, LOW);
     digitalWrite (ledPin4, LOW);
-   // delay ((random(5, 10) * 1000));
+   delay ((random(5, 10) * 1000));
     previousMillis = currentMillis;
 
 
