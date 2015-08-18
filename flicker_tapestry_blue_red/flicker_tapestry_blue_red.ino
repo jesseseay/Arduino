@@ -5,11 +5,8 @@ const int ledPin1 =  6; /*checked and works*/
 const int ledPin2 =  5; /*checked and works*/
 const int ledPin3 =  7; /*checked and works*/
 const int ledPin4 =  8;
+const int all_pins = {ledPin1, ledPin2, ledPin3, ledPin4};
 
-
-unsigned long previousMillis = 0;        // will store last time LED was updated
-
-// constants won't change :
 const long interval1 = 2000;           // interval at which to blink (milliseconds)
 const long interval2 = 5000;           // interval at which to blink (milliseconds)
 const long interval3 = 9000;           // interval at which to blink (milliseconds)
@@ -18,69 +15,64 @@ const long interval4 = 12000;           // interval at which to blink (milliseco
 
 void setup() {
 
-  pinMode(ledPin1, OUTPUT);
-  pinMode(ledPin2, OUTPUT);
-  pinMode(ledPin3, OUTPUT);
-  pinMode(ledPin4, OUTPUT);
+  for (int pin = 0, pin < 4, pin++) {
+    pinMode(all_pins[pin], OUTPUT);
+  }
 
+  unsigned long loopEndTime = millis(); // used to calculate how long sequence
+                                        // has been running. Always less than
+                                        // startTime.
 }
+
+void flicker(int pins[]) {
+    for (int pin = 0, pin < sizeof(pins), pin++) {
+        analogWrite(pins[pin], random(200) + 55);
+        delay(random(20));
+    }
 
 void loop()
 {
-  unsigned long currentMillis = millis();
-  if (currentMillis - previousMillis <= interval1) {
+  unsigned long startTime = millis();
+  if (startTime - loopEndTime <= interval1) {
+    // flicker first led
     analogWrite(ledPin1, random(200) + 55);
+    delay(random(20));
   }
-
-  else if (currentMillis - previousMillis <= interval2) {
+  else if (startTime - loopEndTime <= interval2) {
+    // flicker 2nd led
     analogWrite(ledPin1, random(200) + 55);
     analogWrite(ledPin2, random(200) + 55);
     delay(random(20));
   }
-  else if (currentMillis - previousMillis <= interval3) {
+  else if (startTime - loopEndTime <= interval3) {
+    // flicker 3rd led
     analogWrite(ledPin1, random(200) + 55);
     analogWrite(ledPin2, random(200) + 55);
     analogWrite(ledPin3, random(200) + 55);
     delay(random(20));
   }
 
-  else if (currentMillis - previousMillis <= interval4) {
-
-    digitalWrite (ledPin1, HIGH);
-    digitalWrite (ledPin2, HIGH);
-    digitalWrite (ledPin3, HIGH);
-    digitalWrite (ledPin4, HIGH);
+  else if (startTime - loopEndTime <= interval4) {
+    // turn on all leds
+    for (int pin = 0, pin < 4, pin++) {
+      digitalWrite(all_pins[pin], HIGH);
+    }
     delay(5);
 
     for (int fadeValue = 255 ; fadeValue >= 0; fadeValue -= 1) {
-      // sets the value (range from 0 to 255):
-      analogWrite(ledPin1, fadeValue);
-      analogWrite(ledPin2, fadeValue);
-      analogWrite(ledPin3, fadeValue);
-      analogWrite(ledPin4, fadeValue);
+      for (int pin = 0, pin < 4, pin++) {
+        analogWrite(all_pins[pin], fadeValue);
+      }
       delay (10);
 
     }
   }
 
-  else if (currentMillis - previousMillis > interval4) {
-    digitalWrite (ledPin1, LOW);
-    digitalWrite (ledPin2, LOW);
-    digitalWrite (ledPin3, LOW);
-    digitalWrite (ledPin4, LOW);
-   delay ((random(5, 10) * 1000));
-    previousMillis = currentMillis;
-
-
+  else if (startTime - loopEndTime > interval4) {
+    for (int pin = 0, pin < 4, pin++) {
+      digitalWrite (all_pins[pin], LOW);
+    }
+    delay ((random(5, 10) * 1000));
+    loopEndTime = millis();
   }
 }
-
-
-
-
-
-
-
-
-
-
