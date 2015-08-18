@@ -1,11 +1,10 @@
 
-//pin assigns are messed up. re do chip socket and only use pwm pins.
 
 
-const int ledPin1 =  5;
-const int ledPin2 =  5;
-const int ledPin3 =  3;
-const int ledPin4 =  2;
+const int ledPin1 =  6; /*checked and works*/
+const int ledPin2 =  5; /*checked and works*/
+const int ledPin3 =  7; /*checked and works*/
+const int ledPin4 =  8;
 
 
 unsigned long previousMillis = 0;        // will store last time LED was updated
@@ -50,8 +49,8 @@ void loop()
     digitalWrite (ledPin1, HIGH);
     digitalWrite (ledPin2, HIGH);
     digitalWrite (ledPin3, HIGH);
-    digitalWrite(ledPin4, HIGH);
-    delay(10);
+    digitalWrite (ledPin4, HIGH);
+    delay(5);
 
 
     for (int fadeValue = 255 ; fadeValue >= 0; fadeValue -= 1) {
@@ -59,8 +58,8 @@ void loop()
       analogWrite(ledPin1, fadeValue);
       analogWrite(ledPin2, fadeValue);
       analogWrite(ledPin3, fadeValue);
-      analogWrite(ledPin4, fadeValue+50);
-      delay (20);
+      analogWrite(ledPin4, fadeValue);
+      delay (10);
       // wait for 30 milliseconds to see the dimming effect
     }
 
@@ -72,8 +71,9 @@ void loop()
     digitalWrite (ledPin2, LOW);
     digitalWrite (ledPin3, LOW);
     digitalWrite (ledPin4, LOW);
+   // delay ((random(5, 10) * 1000));
     previousMillis = currentMillis;
-    delay ((random(1, 2) * 1000));
+
 
   }
 }
